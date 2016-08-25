@@ -7,8 +7,9 @@ int fibr(int n){
 }
 
 int fibi(int n){
-	int a = 1, b = 1, c, i;
-	for(a = 1, b = 1, i = 3; i <= n; c = a + b, a = b, b = c, i++);
+	int a = 1, b = 1, c = 1, i;
+	if(!n) return 0;
+	for(i = 3; i <= n; c = a + b, a = b, b = c, i++);
 	return c;
 }
 
