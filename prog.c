@@ -6,7 +6,7 @@ int fibr(int n){
 	return fibr(n-1) + fibr(n-2);
 }
 
-int fibi(int n){
+int fibi(unsigned int n){
 	int a = 1, b = 1, c = 1, i;
 	if(!n) return 0;
 	for(i = 3; i <= n; c = a + b, a = b, b = c, i++);
@@ -18,7 +18,7 @@ void print_me(){
 }
 
 int main(int argc, char *argv[]){
-	int i;
+	unsigned int i;
 	for(i = 0; i < 100; i++)
 		printf("f(%d) = %d\n", i, fibi(i));;
 	return 0;
