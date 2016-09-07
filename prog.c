@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-//OHAYOU GOZAIMASU!
-//SAYOUNARA!!!
-//KONNICHIHA!!!
-
 static
 void featureA(){
 	int a;
