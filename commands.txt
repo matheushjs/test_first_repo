@@ -1,0 +1,251 @@
+git clone https://github.com/gilt/code.gilt.com.git
+git status
+git status
+git log --oneline 
+git status
+git log --oneline 
+git log
+git diff
+git diff HEAD~1 HEAD~2
+git diff --cached HEAD~1 HEAD~2
+git diff --staged HEAD~1 HEAD~2
+git diff --stage HEAD~1 HEAD~2
+git diff --stag HEAD~1 HEAD~2
+git init
+git add prog.c 
+git commit
+git diff
+git diff -cached
+git diff -staged
+git diff --help
+git diff --cached
+git diff --staged
+git status
+git add prog.c
+git diff --cached
+git diff --staged
+git rm \*~
+git status
+git rm *~
+git rm /*~
+git rm /\*~
+git rm ./*~
+git rm ./\*~
+git rm \*~
+git rm prog.c~
+git status
+git add *
+git rm \*~
+git rm -f \*~
+git add *
+git status
+git rm --cached \*~
+git status
+git status
+git log
+git commit
+git status
+git log
+git log --2
+git log -2
+git log -p -2
+git log --stats
+git log --stat
+git log --oneline 
+git log --pretty=oneline 
+git log --pretty=short
+git log --pretty=full
+git log --pretty=fuller
+git log --pretty=format:"%h - %an, %ar : %s"
+git log --pretty=format:"%h - %an, %ar : %s" --graph
+git status
+git clone
+git pull
+git push
+git help config
+git config --global push.default simple
+git push
+git pull
+git remote
+git remove -v
+git remote -v
+git fetch
+git remote show origin 
+git tag
+git tag -v 1.1 -m "my version 1.1"
+git tag -q 1.1 -m "my version 1.1"
+git tag -a 1.1 -m "my version 1.1"
+git tg
+git tagg
+git tag
+git show
+git show 1.1
+git tag -s 1.2 -m "my signed version 1.2"
+git tag
+git tag 1.2-lw
+git tag
+git show 1.2-lw 
+git merge mybranch 
+git status
+git mergetool
+git status
+git status
+gvimdiff
+gvimdiff prog.c prog.c.orig 
+tkdiff
+git status
+git rm *orig
+git status
+git status
+git commit -a
+git branch -d mybranch 
+git status
+git branch --merged 
+git branch --no-merged 
+git remote
+git remote -v
+git remote
+git remote -v
+git ls-remote
+git ls-remote origin
+git status
+git checkout origin/master
+git branch
+git checkout master
+git branch
+git branch -v
+git branch HEAD
+git tag
+git fetch
+git pull
+git tag
+git config --global credential.helper cache
+git remote
+git ls-remote
+git remote branch
+git remote show
+git remote show origin
+git branch --v
+git branch -vv
+git fetch --all; git branch -vv
+git checkout -b om origin/master
+git branch
+git branch -vv
+git remote add proj ../remote.git/
+git remote -vv
+git fetch
+git fetch proj
+git push proj
+git push proj master
+git remote show proj
+git push --set-upstream proj master
+git merge master proj/master
+git remote rm proj
+git remote add proj https://gitlab.com/matheushjs/first_repo_test
+git push --set-upstream proj master
+git push -u proj master
+git diff --check
+git merge --squash featureA
+git merge --no-commit featureA
+git request-pull origin/master myfork
+git format-patch -M origin/master //For e-mail lists
+git imap-send	//send through imap
+git send-email *.patch	//send through smtp
+git diff origin/master..master
+git add -i
+git add -p
+git reset --patch
+git checkout --patch
+git checkout --patch featureA *		#apparently adds files (hunk by hunk) from featureA to current branch.
+git stash
+git stash apply
+git stash --keep-index
+git stash -u
+git stash --patch
+git stash --all
+git clean -f -d
+git clean -n
+git clean -f -x
+git grep -n regexp
+git grep --count regexp
+git grep -p regexp
+git grep --break --heading -n -e '#define' --and \( -e LINK -e BUF_MAX \) v1.8.0	#this last thing is a tag
+git log -SBUF_MAX --oneline
+git log -G[[:digit:]] --oneline
+git log -L :read_line:files.c		#finds the bounds of the function read_line() in files.c and shows us its history
+git show
+git filter-branch --tree-filter 'rm -f prog' HEAD
+git filter-branch --tree-filter 'rm -f prog' -all 
+git cat-file -p HEAD
+git ls-tree -r HEAD
+git diff --ours (--theirs --base)
+git checkout --conflict (--conflict=merge (default) | --conflict=diff3 (more context))
+git checkout --ours (--theirs)
+git log --oneline --left-right HEAD...MERGE_HEAD
+git log --oneline --left-right --merge
+git log --oneline --left-right --merge -p		#shows the diffs
+git log --cc -p -1		#log for merge commits
+git revert -m 1 HEAD		#keep parent 1 (branch onto which we merged)
+git revert -m 1 HEAD^		#Can be used to unrevert the command above
+git merge -Xignore-all-spaces proj
+git merge -Xignore-space-change proj
+git merge -Xours proj
+git merge -Xtheirs proj
+git merge-file --ours
+git merge -s ours proj		#for conveniently tricking git
+git read-tree --prefix=new/ -u other_proj	#takes all content from other_proj and puts in directory new/
+git checkout other_proj
+git pull
+git checkout master
+git merge --squash -Xsubtree=new other_proj
+git diff-tree -p other-proj
+
+git config --global rerere.enabled true
+git rerere status
+git rerere diff
+git ls-files -u
+git checkout --conflict=merge prog.c	#recreates the conflicted state
+git rerere				#re-fixes the conflicted state
+
+git blame -L 12,22 prog.c		#lines 12 to 22
+git blame -C -L 141,153 prog.c		#-C for looking information about a snippet in files with other names
+
+git bisect start
+git bisect bad
+git bisect good v1.0  //effectively starts binary searching
+git bisect good/bad   //heads for next search
+git bisect reset      //goes back to where you were before starting 
+
+git bisect start HEAD v1.0
+git bisect run [test.sh/make test]  //cool if command returns 0 if there is no problem, and non-0 if there is.
+
+git submodule add https://github.com/chaconinc/DbConnector
+git diff --cached --submodule
+git config --global diff.submodule log
+git commit -am "add module"
+git submodule init	#for when you clone a project with submodules
+git submodule update	#same as above
+git clone --recursive [URL]	#already inits and updates submodules
+git submodule update --remote DbConnector
+git config status.submodulesummary 1
+git log -p --submodule
+git submodule update --remote	#will try to update all submodules. Better to pass the name of one specific.
+
+#for making changes in the submodule
+git checkout [some_branch]
+git submodule update --remote --merge
+[enter submodule directory and make changes, and commit changes]
+git commit -am "changes to submodule"
+[leave directory]
+git commit -am "changes to submodule"	#will possibly need this
+git submodule update --remote --rebase
+cd [submodule_dir]; git push;		#for pushing your changes do this
+git push --recurse-submodules=on-demand #or this
+git push --recurse-submodules=check	#checks if all submodules don't have any changes you made that weren't published
+git submodule foreach 'git stash'
+git submodule foreach 'git checkout -b featureA'
+
+#cool aliases for submodules
+git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
+git config alias.spush 'push --recurse-submodules=on-demand'
+git config alias.supdate 'submodule update --remote --merge'
