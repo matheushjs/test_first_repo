@@ -152,6 +152,7 @@ git format-patch -M origin/master //For e-mail lists
 git imap-send	//send through imap
 git send-email *.patch	//send through smtp
 git diff origin/master..master
+git diff master ^origin/master
 git add -i
 git add -p
 git reset --patch
@@ -212,9 +213,9 @@ git blame -C -L 141,153 prog.c		#-C for looking information about a snippet in f
 
 git bisect start
 git bisect bad
-git bisect good v1.0  //effectively starts binary searching
-git bisect good/bad   //heads for next search
-git bisect reset      //goes back to where you were before starting 
+git bisect good v1.0	//effectively starts binary searching
+git bisect good/bad	//heads for next search
+git bisect reset	//goes back to where you were before starting
 
 git bisect start HEAD v1.0
 git bisect run [test.sh/make test]  //cool if command returns 0 if there is no problem, and non-0 if there is.
@@ -249,3 +250,31 @@ git submodule foreach 'git checkout -b featureA'
 git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
 git config alias.spush 'push --recurse-submodules=on-demand'
 git config alias.supdate 'submodule update --remote --merge'
+
+git bundle create repo.bundle HEAD master
+git clone repo.bundle repo
+git bundle create commits.bundle 9a466c5..master (master ^9a466c5)
+git bundle verify commits.bundle
+git bundle list-heads commits.bundle
+git fetch commits.bundle master:our_master
+
+#Separating your project into history and recent:
+git branch history [commit4]
+git remote add project-history [history-URL]
+git push project-history history:master
+echo 'get history from X' | git commit-tree [commit3]^{tree}	#creates a new parentless commit object, and returns its SHA-1.
+git rebase --onto [returned-SHA] [commit4]~
+
+#Cloning a project with history and recent, and joining both:
+git clone [recent-URL]
+cd [project-dir]
+git remote add project-history [history-URL]
+git fetch project-history
+git replace [recent-overlapping-commit] [history-overlapping-comit] #if there are no overlapping commits, one side will have a placeholder.
+git replace [recent-placeholder-commit] [history-earliest-commit] #the placeholder is the parent of the oldest commit in recent.
+
+man git-config
+vim ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+git config --global help.autocorrect 50
+git config --global core.autocrlf input
