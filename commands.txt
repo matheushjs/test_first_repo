@@ -215,7 +215,7 @@ git bisect start
 git bisect bad
 git bisect good v1.0	//effectively starts binary searching
 git bisect good/bad	//heads for next search
-git bisect reset	//goes back to where you were before starting
+git bisect reset	//goes back to where you were before starting 
 
 git bisect start HEAD v1.0
 git bisect run [test.sh/make test]  //cool if command returns 0 if there is no problem, and non-0 if there is.
@@ -278,3 +278,60 @@ vim ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 git config --global help.autocorrect 50
 git config --global core.autocrlf input
+git apply --whitespace=fix [patch]
+git rebase --whitespace=fix
+
+git hash-object -w --stdin	#Stores an object and gives you the SHA
+git cat-file -p [SHA]	#inspects an object
+git cat-file -p master^{tree}	#master^{tree} is the tree object that is pointed to by the last commit on master branch
+git update-index --add --cacheinfo [mode]
+git write-tree
+git read-tree --prefix=dir [tree-SHA]
+echo [commit msg] | git commit-tree [tree-SHA]
+echo [commit msg] | git commit-tree [tree-SHA] -p [prev-tree-SHA]
+#NOTE: commit = tree of blobs and subtrees concatenated plus information about who did the commit, date, commit msg and parent commit.
+
+echo "[object-SHA1]" > .git/refs/heads/master	#creates a ref called master (a branch!)
+git update-ref refs/head/master [object-SHA1	#does the same, more safely. It's what git branch or checkout -b does
+
+git symbolic-ref HEAD
+git symbolic-ref HEAD refs/heads/some_branch
+git update-ref regs/tags/v1.0 [commit-SHA1]	#creates a tag
+#NOTE: tags are like branches (ref to a commit), but they never move and carry information about the tagger, date and a message.
+#NOTE: annotated tags are references to another tag
+#NOTE: though rarely used, tags can point to other objects too, not only commits.
+git tag -a v1.1 [commit-SHA1] -m 'test tag'
+cat .git/refs/tags/v1.1
+git cat-file -p [returned-SHA1]
+
+git remote add origin [URL]
+git push origin maste
+cat .git/refs/remotes/origin/master
+#NOTE: remote references store the SHA1 of the last commit that was pushed to the remote.
+#NOTE: difference between remote and regular branches is just that you can't point HEAD to a remote (meaning you can't commit to it, but can checkout)
+
+git gc	#'garbage collect' packs loose objects (compresses them into a pack)
+find .git/objects -type f
+git verify-pack -v [.pack or .idx file]
+
+git fetch origin master:refs/remotes/origin/mymaster topic:refs/remotes/origin/topic	#may need to add a '+' before each refspec.
+git push origin master:refs/heads/qa/master
+#NOTE: all these references are on .git/refs/remote and the default push/pull are on .git/config
+git push origin :topic	#erases default
+
+git reflog
+git log -g
+git fsck --full
+git count-objects -v
+#NOTE: for removing a gigantic file from your history:
+git verify-pack -v [.pack or .idx file]
+git rev-list --objects --all | grep [SHA1 of unwanted object]
+git log --oneline --branches -- [unwanted file]
+git filter-branch --index-filter 'git rm --ignore-unmatch --cached [unwanted file]' -- [firstSHA1]^..
+#NOTE: [firstSHA1]^.. chooses all commits that came after firstSHA1, inclusive.
+rm -rf .git/refs/original
+rm -rf .git/logs/
+git gc
+git prune --expire now
+git count-objects -v
+#NOTE: This process will change all SHA1s from [firstSHA1] and up, so don't do this change if any of those commits have been published.
